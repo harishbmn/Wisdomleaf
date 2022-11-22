@@ -43,7 +43,7 @@ public class ListPresenter implements IListPresenter, IResponseInterface {
     }
 
     @Override
-    public void getList(String pageNo, String limit) {
+    public void getList(int pageNo, int limit) {
         iRequestInterface.CallApi(AppController.getInstance().service.list(pageNo, limit), ApiReqType.List);
 
     }

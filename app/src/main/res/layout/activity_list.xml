@@ -6,13 +6,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
+    android:orientation="vertical"
     tools:context=".screens.main.ListActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerviewId"
-        android:layout_width="match_parent"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_id"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerviewId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/list_view" />
+
+            <ProgressBar
+                android:id="@+id/idPBLoading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/swipe_refresh_id"
+                android:visibility="visible" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </RelativeLayout>
+
+

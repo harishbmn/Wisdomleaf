@@ -1,13 +1,17 @@
 package com.wisdomleaftest.screens.main.adapter;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
+import android.app.AlertDialog;
 import android.content.Context;
-import android.net.Uri;
-import androidx.appcompat.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,12 +22,11 @@ import com.wisdomleaftest.screens.main.ListActivity;
 import com.wisdomleaftest.screens.main.model.Datum;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private final List<Datum> list;
-    private Context context;
+    private final Context context;
     IListPresenter iListPresenter;
 
     public ListAdapter(IListPresenter iListPresenter, ListActivity listActivity) {
@@ -45,12 +48,24 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         if (list.size() != 0) {
             final Datum model = list.get(position);
             holder.title.setText(model.getAuthor());
-            Picasso.with(context).load(model.getDownloadUrl()).into(holder.imageView);
+            String url = model.getDownloadUrl();
+            Log.i(TAG, "DownloadUrl: " + model.getDownloadUrl());
+            Log.i(TAG, "url: " + model.getUrl());
+            Picasso.get().load(url).into(holder.imageView);
+holder.rootLayout.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
 
-           //holder.imageView.setImageURI(Uri.parse(model.getUrl()));
+        new AlertDialog.Builder(context)
+                .setTitle("Description")
+                .setMessage(model.getAuthor()+"/n"+model.getUrl())
+                .show();
+    }
+});
 
         }
     }
+
 
     @Override
     public int getItemCount() {
@@ -58,18 +73,21 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     public void setData(List<Datum> model) {
-        list.clear();
-        list.addAll((Collection<? extends Datum>) model);
+        list.addAll(model);
         notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         AppCompatTextView title;
         AppCompatImageView imageView;
+        RelativeLayout rootLayout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title =itemView.findViewById(R.id.title);
-            imageView =itemView.findViewById(R.id.image);
+            title = itemView.findViewById(R.id.title);
+            imageView = itemView.findViewById(R.id.image);
+            rootLayout = itemView.findViewById(R.id.root_layout);
         }
     }
+
 }

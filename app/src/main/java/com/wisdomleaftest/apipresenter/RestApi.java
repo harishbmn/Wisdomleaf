@@ -14,6 +14,6 @@ public interface RestApi {
 
     @Headers("Content-Type: application/json")
     @GET(ApiConstants.List)
-    Call<List<Datum>> list(@Query("page") String pageNo, @Query("limit") String limit);
+    Call<List<Datum>> list(@Query("page") int pageNo, @Query("limit") int limit);
 
    }
