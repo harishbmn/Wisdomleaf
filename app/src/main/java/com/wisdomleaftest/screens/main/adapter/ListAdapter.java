@@ -2,6 +2,7 @@ package com.wisdomleaftest.screens.main.adapter;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
@@ -52,16 +53,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             Log.i(TAG, "DownloadUrl: " + model.getDownloadUrl());
             Log.i(TAG, "url: " + model.getUrl());
             Picasso.get().load(url).into(holder.imageView);
-            holder.rootLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    new AlertDialog.Builder(context)
-                            .setTitle("Description")
-                            .setMessage(model.getAuthor() + "/n" + model.getUrl())
-                            .show();
-                }
-            });
+            holder.rootLayout.setOnClickListener(view -> new AlertDialog.Builder(context)
+                    .setTitle("Description")
+                    .setMessage(model.getAuthor() + "/n" + model.getUrl())
+                    .show());
 
         }
     }
@@ -72,6 +67,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         return list.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setData(List<Datum> model) {
         list.addAll(model);
         notifyDataSetChanged();
