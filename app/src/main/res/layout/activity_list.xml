@@ -5,10 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
     tools:context=".screens.main.ListActivity">
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title"
+        android:text="@string/list"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:background="@color/purple_500"
+        android:layout_height="50dp"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_below="@+id/title"
         android:id="@+id/swipe_refresh_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -19,6 +30,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerviewId"
+                android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/list_view" />

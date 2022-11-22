@@ -108,7 +108,7 @@ public class ListActivity extends AppCompatActivity implements IListView {
     }
 
     public boolean isConnected() {
-        boolean connected = false;
+        boolean connected;
         try {
             ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
             NetworkInfo nInfo = cm.getActiveNetworkInfo();
@@ -117,7 +117,7 @@ public class ListActivity extends AppCompatActivity implements IListView {
         } catch (Exception e) {
             Log.e("Connectivity Exception", e.getMessage());
         }
-        return connected;
+        return false;
     }
 
 
