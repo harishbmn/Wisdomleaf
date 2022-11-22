@@ -52,16 +52,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             Log.i(TAG, "DownloadUrl: " + model.getDownloadUrl());
             Log.i(TAG, "url: " + model.getUrl());
             Picasso.get().load(url).into(holder.imageView);
-holder.rootLayout.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
+            holder.rootLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-        new AlertDialog.Builder(context)
-                .setTitle("Description")
-                .setMessage(model.getAuthor()+"/n"+model.getUrl())
-                .show();
-    }
-});
+                    new AlertDialog.Builder(context)
+                            .setTitle("Description")
+                            .setMessage(model.getAuthor() + "/n" + model.getUrl())
+                            .show();
+                }
+            });
 
         }
     }

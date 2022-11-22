@@ -2,9 +2,10 @@ package com.wisdomleaftest.singelton;
 
 import android.content.Context;
 
-import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
+import com.facebook.stetho.Stetho;
+import com.squareup.okhttp.OkHttpClient;
 import com.wisdomleaftest.apipresenter.ApiConstants;
 import com.wisdomleaftest.apipresenter.RestApi;
 
@@ -24,12 +25,15 @@ public class AppController extends MultiDexApplication {
         mInstance = this;
         context = this;
 
+        OkHttpClient okHttpClient = new OkHttpClient();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-
+        Stetho.initializeWithDefaults(this);
         service = retrofit.create(RestApi.class);
     }
 

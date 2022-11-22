@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
-    android:orientation="vertical"
     tools:context=".screens.main.ListActivity">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -14,10 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerviewId"
@@ -26,13 +23,14 @@
                 tools:listitem="@layout/list_view" />
 
             <ProgressBar
+                android:layout_marginTop="30dp"
                 android:id="@+id/idPBLoading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/swipe_refresh_id"
-                android:visibility="visible" />
+                android:layout_gravity="bottom"
+                android:visibility="invisible" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </FrameLayout>
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

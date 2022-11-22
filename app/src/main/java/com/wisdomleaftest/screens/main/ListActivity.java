@@ -97,7 +97,7 @@ public class ListActivity extends AppCompatActivity implements IListView {
     public void setList(List<Datum> model) {
         if (model !=null){
             listAdapter.setData(model);
-            loadingPB.setVisibility(View.VISIBLE);
+            loadingPB.setVisibility(View.INVISIBLE);
 
         }
     }
