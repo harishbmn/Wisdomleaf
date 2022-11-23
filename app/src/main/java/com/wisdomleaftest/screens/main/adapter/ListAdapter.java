@@ -18,14 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Picasso;
 import com.wisdomleaftest.R;
 import com.wisdomleaftest.screens.main.IListPresenter;
 import com.wisdomleaftest.screens.main.ListActivity;
 import com.wisdomleaftest.screens.main.model.Datum;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
@@ -64,6 +62,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     .asBitmap()
                     .apply(myOptions)
                     .load(url)
+                    .placeholder(R.drawable.img)
                     .into(holder.imageView);
             holder.rootLayout.setOnClickListener(view -> new AlertDialog.Builder(context)
                     .setTitle("Description")

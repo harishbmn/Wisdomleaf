@@ -60,6 +60,7 @@ public class ListActivity extends AppCompatActivity implements IListView {
     private void callApi() {
         if (isConnected()) {
             iListPresenter.getList(page, limit);
+            Log.e("page and limit", String.valueOf(page));
         } else {
             loadingPB.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
@@ -70,6 +71,7 @@ public class ListActivity extends AppCompatActivity implements IListView {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             if (isConnected()) {
                 iListPresenter.getList(0, limit);
+                Log.e("page and limit", String.valueOf("0"));
             } else {
                 loadingPB.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
@@ -96,8 +98,10 @@ public class ListActivity extends AppCompatActivity implements IListView {
                             page++;
                             loadingPB.setVisibility(View.VISIBLE);
                             callApi();
-                            loading = true;
+
                         }
+                    }else{
+                        loading = true;
                     }
                 }
             }
@@ -131,8 +135,9 @@ public class ListActivity extends AppCompatActivity implements IListView {
     @Override
     public void setList(Object model) throws IOException, JSONException {
         List<Datum> list = new ArrayList<>();
-        if (model != null) {
 
+        list.clear();
+        if (model != null) {
             ObjectMapper objectMapper = new ObjectMapper();
             String respData = objectMapper.writeValueAsString(model);
 
