@@ -4,16 +4,19 @@ import com.wisdomleaftest.screens.main.model.Datum;
 import com.wisdomleaftest.screens.main.model.ListModel;
 
 import java.util.List;
+import java.util.Objects;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Headers;
-import retrofit.http.Query;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Query;
+
 
 public interface RestApi {
 
     @Headers("Content-Type: application/json")
     @GET(ApiConstants.List)
-    Call<List<Datum>> list(@Query("page") int pageNo, @Query("limit") int limit);
+    Call<Object> list(@Query("page") int pageNo, @Query("limit") int limit);
 
    }

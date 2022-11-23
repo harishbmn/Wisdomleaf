@@ -16,6 +16,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
 import com.wisdomleaftest.R;
 import com.wisdomleaftest.screens.main.IListPresenter;
@@ -23,6 +25,7 @@ import com.wisdomleaftest.screens.main.ListActivity;
 import com.wisdomleaftest.screens.main.model.Datum;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
@@ -52,7 +55,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             String url = model.getDownloadUrl();
             Log.i(TAG, "DownloadUrl: " + model.getDownloadUrl());
             Log.i(TAG, "url: " + model.getUrl());
-            Picasso.get().load(url).into(holder.imageView);
+
+            //Picasso.get().load(url).into(holder.imageView);
+            RequestOptions myOptions = new RequestOptions()
+                    .override(100, 100);
+
+            Glide.with(context)
+                    .asBitmap()
+                    .apply(myOptions)
+                    .load(url)
+                    .into(holder.imageView);
             holder.rootLayout.setOnClickListener(view -> new AlertDialog.Builder(context)
                     .setTitle("Description")
                     .setMessage(model.getAuthor() + "/n" + model.getUrl())

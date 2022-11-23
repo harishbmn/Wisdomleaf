@@ -1,7 +1,7 @@
 package com.wisdomleaftest.interfaces;
 
 
-import retrofit.Call;
+import retrofit2.Call;
 
 public interface IRequestInterface {
 

@@ -1,8 +1,11 @@
 package com.wisdomleaftest.screens.main;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
+import android.util.Log;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wisdomleaftest.apipresenter.APIResponsePresenter;
 import com.wisdomleaftest.apipresenter.ApiReqType;
 import com.wisdomleaftest.interfaces.IRequestInterface;
@@ -10,16 +13,18 @@ import com.wisdomleaftest.interfaces.IResponseInterface;
 import com.wisdomleaftest.screens.main.model.Datum;
 import com.wisdomleaftest.singelton.AppController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import org.json.JSONException;
 
-import retrofit.Response;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import retrofit2.Response;
 
 public class ListPresenter implements IListPresenter, IResponseInterface {
     private final IRequestInterface iRequestInterface;
-    private IListView iListView;
+    private final IListView iListView;
 
     public ListPresenter(IListView iListView) {
         this.iRequestInterface = new APIResponsePresenter(this);
@@ -27,11 +32,11 @@ public class ListPresenter implements IListPresenter, IResponseInterface {
     }
 
     @Override
-    public void onResponseSuccess(Response response, String reqType) {
-
+    public void onResponseSuccess(Response response, String reqType) throws JSONException, IOException {
         if (response != null) {
             if (reqType.equalsIgnoreCase(ApiReqType.List)) {
-                List<Datum> model = (List<Datum>) response.body();
+
+                Object model = response.body();
                 iListView.setList(model);
             }
         }
@@ -39,7 +44,7 @@ public class ListPresenter implements IListPresenter, IResponseInterface {
 
     @Override
     public void onResponseFailure(String responseError) {
-
+        Log.i(TAG, "responseerror: " + responseError);
     }
 
     @Override

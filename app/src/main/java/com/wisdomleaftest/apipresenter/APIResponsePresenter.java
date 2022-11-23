@@ -1,14 +1,19 @@
 package com.wisdomleaftest.apipresenter;
 
+import androidx.annotation.NonNull;
+
 import com.wisdomleaftest.interfaces.IRequestInterface;
 import com.wisdomleaftest.interfaces.IResponseInterface;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.net.ConnectException;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class APIResponsePresenter implements IRequestInterface {
     IResponseInterface iResponseInterface;
@@ -19,14 +24,19 @@ public class APIResponsePresenter implements IRequestInterface {
 
     @Override
     public void CallApi(Call call, final String reqType) {
+
        call.enqueue(new Callback() {
            @Override
-           public void onResponse(Response response, Retrofit retrofit) {
-               iResponseInterface.onResponseSuccess(response, reqType);
+           public void onResponse(@NonNull Call call, @NonNull Response response) {
+               try {
+                   iResponseInterface.onResponseSuccess(response, reqType);
+               } catch (JSONException | IOException e) {
+                   e.printStackTrace();
+               }
            }
 
            @Override
-           public void onFailure(Throwable t) {
+           public void onFailure(@NonNull Call call, @NonNull Throwable t) {
                if (t instanceof ConnectException) {
                    iResponseInterface.onResponseFailure("No Internet Connection");
                } else {
@@ -34,6 +44,7 @@ public class APIResponsePresenter implements IRequestInterface {
                    iResponseInterface.onResponseFailure("Response Failed");
                }
            }
+
        });
     }
 

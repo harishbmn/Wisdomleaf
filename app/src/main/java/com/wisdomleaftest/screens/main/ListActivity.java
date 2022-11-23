@@ -16,10 +16,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wisdomleaftest.R;
 import com.wisdomleaftest.screens.main.adapter.ListAdapter;
 import com.wisdomleaftest.screens.main.model.Datum;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity implements IListView {
@@ -122,9 +129,30 @@ public class ListActivity extends AppCompatActivity implements IListView {
 
 
     @Override
-    public void setList(List<Datum> model) {
+    public void setList(Object model) throws IOException, JSONException {
+        List<Datum> list = new ArrayList<>();
         if (model != null) {
-            listAdapter.setData(model);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            String respData = objectMapper.writeValueAsString(model);
+
+            JSONArray jsonArray = new JSONArray(respData);
+            JSONObject values;
+
+            for (int j = 0; j < jsonArray.length(); j++) {
+                values = jsonArray.getJSONObject(j);
+                String id = values.getString("id");
+                String author = values.getString("author");
+                int width = values.getInt("width");
+                int height = values.getInt("height");
+                String url = values.getString("url");
+                String downloadUrl = values.getString("download_url");
+
+                Datum datum = new Datum(id, author, width, height, url, downloadUrl);
+                list.add(datum);
+                //Log.i(TAG, "list: " + list.get(j).getDownloadUrl());
+                listAdapter.setData(list);
+            }
             loadingPB.setVisibility(View.INVISIBLE);
 
         }

@@ -1,13 +1,28 @@
 package com.wisdomleaftest.screens.main.model;
 
 
-public class Datum {
+public class Datum  {
     private String id;
     private String author;
-    private Integer width;
-    private Integer height;
+    private int width;
+    private int height;
     private String url;
     private String downloadUrl;
+
+    public Datum() {
+
+    }
+
+    public Datum(String id, String author, int width, int height, String url, String downloadUrl) {
+        this.id = id;
+        this.author = author;
+        this.width = width;
+        this.height = height;
+        this.url = url;
+        this.downloadUrl = downloadUrl;
+    }
+
+
 
     public String getId() {
         return id;
@@ -25,19 +40,19 @@ public class Datum {
         this.author = author;
     }
 
-    public Integer getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(Integer width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public Integer getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(Integer height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -56,4 +71,5 @@ public class Datum {
     public void setDownloadUrl(String downloadUrl) {
         this.downloadUrl = downloadUrl;
     }
+
 }

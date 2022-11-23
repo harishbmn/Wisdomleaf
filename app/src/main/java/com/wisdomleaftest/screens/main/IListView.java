@@ -1,12 +1,15 @@
 package com.wisdomleaftest.screens.main;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wisdomleaftest.screens.main.model.Datum;
-import com.wisdomleaftest.screens.main.model.ListModel;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.List;
 
 public interface IListView {
 
-    void setList(List<Datum> model);
+    void setList(Object model) throws JSONException, IOException;
 
 }
